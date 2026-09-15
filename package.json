@@ -1,0 +1,20 @@
+{
+  "name": "comrade-chat",
+  "version": "1.0.0",
+  "private": true,
+  "description": "For the real Comrade - a tiny 3~5인 전용 실시간 채팅 웹앱",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "multer": "^2.4.0",
+    "socket.io": "^4.7.5"
+  }
+}

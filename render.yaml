@@ -1,0 +1,21 @@
+# Render Blueprint — 대시보드에서 "New + → Blueprint"로 이 저장소를 선택하면
+# 아래 설정대로 웹 서비스가 자동 생성됩니다. (직접 New + → Web Service로 만들어도 동일합니다)
+services:
+  - type: web
+    name: comrade-chat
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # SESSION_SECRET은 Render가 무작위로 생성해 줍니다 (직접 입력할 필요 없음)
+      - key: SESSION_SECRET
+        generateValue: true
+      # 아래 두 개는 배포 후 Render 대시보드의 Environment 탭에서 직접 값을 채워야 합니다
+      - key: SHARED_PASSWORD
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false

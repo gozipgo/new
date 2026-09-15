@@ -1,0 +1,10 @@
+node_modules/
+.env
+*.log
+.DS_Store
+
+# 런타임 데이터 (DB / 업로드 이미지)는 커밋하지 않되, 빈 폴더는 유지한다
+data/*
+uploads/*
+!data/.gitkeep
+!uploads/.gitkeep
