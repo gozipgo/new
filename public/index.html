@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>Comrade Chat</title>
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <!-- ===================== 로그인 화면 ===================== -->
+  <div id="login-screen" class="screen">
+    <div class="login-card">
+      <h1 class="brand">Comrade Chat</h1>
+      <p class="tagline">For the real Comrade</p>
+
+      <form id="login-form" autocomplete="off">
+        <label class="field">
+          <span>표시 이름</span>
+          <input id="input-name" type="text" maxlength="20" placeholder="닉네임" required />
+        </label>
+
+        <label class="field" id="field-password">
+          <span>비밀번호</span>
+          <input id="input-password" type="password" placeholder="공유 비밀번호" required />
+        </label>
+
+        <label class="field hidden" id="field-admin-password">
+          <span>관리자 비밀번호</span>
+          <input id="input-admin-password" type="password" placeholder="관리자 비밀번호" />
+        </label>
+
+        <label class="admin-toggle">
+          <input id="checkbox-admin" type="checkbox" />
+          <span>관리자로 입장</span>
+        </label>
+
+        <button type="submit" id="btn-login">입장하기</button>
+
+        <p id="login-error" class="error hidden"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================== 채팅 화면 ===================== -->
+  <div id="chat-screen" class="screen hidden">
+    <header class="chat-header">
+      <div class="brand-block">
+        <span class="brand">Comrade Chat</span>
+        <span class="tagline">For the real Comrade</span>
+      </div>
+      <div class="header-actions">
+        <a id="link-admin" href="/admin" target="_blank" rel="noopener" class="icon-btn hidden" title="관리자 화면" aria-label="관리자 화면"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg></a>
+        <button id="btn-theme" class="icon-btn" type="button" title="테마 전환" aria-label="테마 전환">
+          <span class="theme-icon theme-icon-moon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></span>
+          <span class="theme-icon theme-icon-sun"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span>
+        </button>
+        <button id="btn-logout" class="icon-btn" type="button" title="로그아웃" aria-label="로그아웃"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg></button>
+      </div>
+    </header>
+
+    <main id="messages" class="messages"></main>
+
+    <form id="message-form" class="composer">
+      <button type="button" id="btn-pick-image" class="icon-btn" title="이미지 첨부" aria-label="이미지 첨부"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></button>
+      <input id="file-input" type="file" accept="image/png,image/jpeg,image/webp,image/gif" class="hidden" />
+      <textarea
+        id="input-text"
+        rows="1"
+        maxlength="2000"
+        placeholder="메시지를 입력하세요"
+        autocomplete="off"
+      ></textarea>
+      <button type="submit" id="btn-send" class="send-btn" title="전송" aria-label="전송"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+    </form>
+  </div>
+
+  <!-- ===================== 이미지 라이트박스 ===================== -->
+  <div id="lightbox" class="lightbox hidden">
+    <img id="lightbox-img" src="" alt="확대 이미지" />
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
